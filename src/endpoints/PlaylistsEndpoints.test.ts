@@ -41,7 +41,7 @@ describe("Integration: Playlists Endpoints", () => {
         const valid = validPlaylist();
         const result = await sut.playlists.getPlaylistItems(valid.id, undefined, undefined, 1, 0, ['episode']);
 
-        expect(fetchSpy.request(0).input).toBe(`https://api.spotify.com/v1/playlists/${valid.id}/tracks?additional_types=episode`);
+        expect(fetchSpy.request(0).input).toBe(`https://api.spotify.com/v1/playlists/${valid.id}/items?additional_types=episode`);
         expect(result.items.length).toBeGreaterThan(0);
     });
 

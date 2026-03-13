@@ -172,8 +172,10 @@ describe("Integration: Users Endpoints (logged in user)", () => {
 
         await sut.playlists.addCustomPlaylistCoverImage(result.id, file);
         await sut.playlists.addItemsToPlaylist(result.id, [validTrack.uri, validTrack.uri, validTrack.uri, "spotify:track:0ZEigpVOtVunIcimL7dJuh"]);
+        expect(fetchSpy.lastRequest().input).toBe(`https://api.spotify.com/v1/playlists/${result.id}/items`);
 
         const snapshotUpdated = await sut.playlists.movePlaylistItems(result.id, 3, 1, 0); // Move last track to start
+        expect(fetchSpy.lastRequest().input).toBe(`https://api.spotify.com/v1/playlists/${result.id}/items`);
 
         let playlist = await sut.playlists.getPlaylist(result.id);
         expect(playlist.tracks.items.length).toBe(4);
@@ -183,6 +185,7 @@ describe("Integration: Users Endpoints (logged in user)", () => {
             snapshot_id: snapshotUpdated.snapshot_id,
             tracks: [{ uri: validTrack.uri }]
         });
+        expect(fetchSpy.lastRequest().input).toBe(`https://api.spotify.com/v1/playlists/${result.id}/items`);
 
         const playlistWithoutTracks = await sut.playlists.getPlaylist(result.id);
         expect(playlistWithoutTracks.tracks.items.length).toBe(1);
