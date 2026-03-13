@@ -33,7 +33,7 @@ describe("Integration: Playlists Endpoints", () => {
         const valid = validPlaylist();
         const result = await sut.playlists.getPlaylistItems(valid.id);
 
-        expect(fetchSpy.request(0).input).toBe(`https://api.spotify.com/v1/playlists/${valid.id}/tracks`);
+        expect(fetchSpy.request(0).input).toBe(`https://api.spotify.com/v1/playlists/${valid.id}/items`);
         expect(result.items.length).toBeGreaterThan(0);
     });
 

@@ -16,7 +16,7 @@ export default class PlaylistsEndpoints extends EndpointsBase {
     ) {
         // TODO: better support for fields
         const params = this.paramsFor({ market, fields, limit, offset, additional_types: additional_types?.join(',') });
-        return this.getRequest<Page<PlaylistedTrack<AdditionalTypes extends undefined ? Track : TrackItem>>>(`playlists/${playlist_id}/tracks${params}`);
+        return this.getRequest<Page<PlaylistedTrack<AdditionalTypes extends undefined ? Track : TrackItem>>>(`playlists/${playlist_id}/items${params}`);
     }
 
     public async changePlaylistDetails(playlist_id: string, request: ChangePlaylistDetailsRequest) {
@@ -32,22 +32,24 @@ export default class PlaylistsEndpoints extends EndpointsBase {
     }
 
     public updatePlaylistItems(playlist_id: string, request: UpdatePlaylistItemsRequest) {
-        return this.putRequest<SnapshotReference>(`playlists/${playlist_id}/tracks`, request);
+        return this.putRequest<SnapshotReference>(`playlists/${playlist_id}/items`, request);
     }
 
     public async addItemsToPlaylist(playlist_id: string, uris?: string[], position?: number) {
-        await this.postRequest(`playlists/${playlist_id}/tracks`, { position, uris: uris });
+        await this.postRequest(`playlists/${playlist_id}/items`, { position, uris: uris });
     }
 
     public async removeItemsFromPlaylist(playlist_id: string, request: RemovePlaylistItemsRequest) {
-        await this.deleteRequest(`playlists/${playlist_id}/tracks`, request);
+        await this.deleteRequest(`playlists/${playlist_id}/items`, request);
     }
 
+    /** @deprecated Use `currentUser.playlists.playlists()` instead. */
     public getUsersPlaylists(user_id: string, limit?: MaxInt<50>, offset?: number) {
         const params = this.paramsFor({ limit, offset });
         return this.getRequest<Page<Playlist>>(`users/${user_id}/playlists${params}`);
     }
 
+    /** @deprecated Use `currentUser.playlists.createPlaylist()` instead. */
     public createPlaylist(user_id: string, request: CreatePlaylistRequest) {
         return this.postRequest<Playlist>(`users/${user_id}/playlists`, request);
     }
@@ -108,7 +110,7 @@ interface ChangePlaylistDetailsRequest {
 }
 
 // TODO: deduplicate this from above
-interface CreatePlaylistRequest {
+export interface CreatePlaylistRequest {
     name: string;
     public?: boolean;
     collaborative?: boolean;

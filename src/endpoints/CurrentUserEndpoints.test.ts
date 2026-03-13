@@ -212,6 +212,18 @@ describe("Integration: Users Endpoints (logged in user)", () => {
         await sut.currentUser.playlists.unfollow(result.id);
     });
 
+    it("createPlaylist creates a playlist for the current user", async () => {
+        const result = await sut.currentUser.playlists.createPlaylist({
+            name: "test playlist",
+            description: "test description"
+        });
+
+        expect(fetchSpy.lastRequest().input).toBe("https://api.spotify.com/v1/me/playlists");
+        expect(result.name).toBe("test playlist");
+
+        await sut.currentUser.playlists.unfollow(result.id);
+    });
+
     it("getCurrentUsersPlaylists returns playlists", async () => {
         const result = await sut.currentUser.playlists.playlists();
 

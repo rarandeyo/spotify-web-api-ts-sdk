@@ -1,6 +1,7 @@
 import { SpotifyApi } from '../SpotifyApi.js';
-import type { User, Page, Artist, Track, MaxInt, FollowedArtists, Market, SavedAlbum, SimplifiedAudiobook, SimplifiedPlaylist, SavedEpisode, SavedShow, SavedTrack, UserProfile } from '../types.js';
+import type { User, Page, Artist, Track, MaxInt, FollowedArtists, Market, Playlist, SavedAlbum, SimplifiedAudiobook, SimplifiedPlaylist, SavedEpisode, SavedShow, SavedTrack, UserProfile } from '../types.js';
 import EndpointsBase from './EndpointsBase.js';
+import type { CreatePlaylistRequest } from './PlaylistsEndpoints.js';
 
 export default class CurrentUserEndpoints extends EndpointsBase {
     public albums: CurrentUserAlbumsEndpoints;
@@ -124,6 +125,10 @@ class CurrentUserPlaylistsEndpoints extends EndpointsBase {
 
     public async unfollow(playlist_id: string) {
         await this.deleteRequest(`playlists/${playlist_id}/followers`);
+    }
+
+    public createPlaylist(request: CreatePlaylistRequest) {
+        return this.postRequest<Playlist>('me/playlists', request);
     }
 
     public isFollowing(playlistId: string, ids: string[]) {
