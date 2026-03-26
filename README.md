@@ -1,6 +1,43 @@
-# Spotify Web API SDK - TypeScript
+# Spotify Web API SDK - TypeScript (Fork)
 
-This is a JavaScript/TypeScript SDK for the [Spotify Web API](https://developer.spotify.com/web-api/).
+> Fork of [@spotify/web-api-ts-sdk](https://github.com/spotify/spotify-web-api-ts-sdk) with updated playlist endpoints required for Spotify Developer Mode (Feb 2026+).
+> See [PR #156](https://github.com/spotify/spotify-web-api-ts-sdk/pull/156) for details.
+
+## Changes from upstream
+
+- `/playlists/{id}/tracks` → `/playlists/{id}/items` (GET, POST, PUT, DELETE)
+- `POST /users/{id}/playlists` → `POST /me/playlists` (`currentUser.playlists.createPlaylist()`)
+- Deprecated endpoints annotated with `@deprecated`
+
+## Installation
+
+```bash
+npm install @spotify/web-api-ts-sdk@github:rarandeyo/spotify-web-api-ts-sdk
+```
+
+### pnpm
+
+pnpm requires allowing build scripts before installing. Add the following to `package.json`:
+
+```json
+{
+  "pnpm": {
+    "onlyBuiltDependencies": ["@rarandeyo/spotify-web-api-ts-sdk"]
+  }
+}
+```
+
+Then install:
+
+```bash
+pnpm install @spotify/web-api-ts-sdk@github:rarandeyo/spotify-web-api-ts-sdk
+```
+
+---
+
+*Below is the original README.*
+
+---
 
 ## Requirements
 
@@ -10,12 +47,6 @@ Because this SDK uses `fetch` both in Node and the Browser, and ESM, we require 
 - A modern, version infinite, browser
 
 The package contains both an ESM and CommonJS build, so you can use it in both Node and the Browser.
-
-## Using this in your project
-
-```bash
-npm install @spotify/web-api-ts-sdk
-```
 
 ## Running the example app
 
