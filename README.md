@@ -21,6 +21,8 @@ The following changes are **not yet addressed**:
 - Removed fields (`popularity`, `available_markets`, `followers`, etc.)
 - Search `limit` max reduced from 50 to 10
 
+> Spotify publishes an [official OpenAPI spec](https://developer.spotify.com/reference/web-api/open-api-schema.yaml) that already reflects the February 2026 changes. Using tools like [openapi-typescript](https://github.com/openapi-ts/openapi-typescript) could help keep the SDK in sync with the API going forward.
+
 ## Installation
 
 ```bash
