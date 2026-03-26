@@ -5,9 +5,21 @@
 
 ## Changes from upstream
 
+This fork only covers a subset of the [February 2026 API changes](https://developer.spotify.com/documentation/web-api/references/changes/february-2026):
+
 - `/playlists/{id}/tracks` → `/playlists/{id}/items` (GET, POST, PUT, DELETE)
 - `POST /users/{id}/playlists` → `POST /me/playlists` (`currentUser.playlists.createPlaylist()`)
 - Deprecated endpoints annotated with `@deprecated`
+
+The following changes are **not yet addressed**:
+
+- Library endpoints consolidation (`/me/tracks`, `/me/albums`, etc. → `/me/library`)
+- Follow endpoints consolidation (`/me/following`, `/playlists/{id}/followers` → `/me/library`)
+- Contains endpoints consolidation → `/me/library/contains`
+- Batch endpoints removal (`GET /tracks`, `/albums`, `/artists`, etc.)
+- Playlist response field renames (`tracks` → `items`, `tracks.track` → `items.item`)
+- Removed fields (`popularity`, `available_markets`, `followers`, etc.)
+- Search `limit` max reduced from 50 to 10
 
 ## Installation
 
